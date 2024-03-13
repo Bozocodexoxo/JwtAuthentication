@@ -7,13 +7,16 @@ import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+import org.vamshi.myjwt.Service.jwtservice;
 
 import java.security.Key;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.function.Function;
 
 @Service
-public class jwtserviceimpl {
+public class jwtserviceimpl implements jwtservice {
     public String GenerateToken(UserDetails userDetails){
         return Jwts.builder().setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
@@ -21,6 +24,13 @@ public class jwtserviceimpl {
                 .signWith(getSignKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
+    public String generateRefreshtok(Map <String,Object> extraclaims,UserDetails userDetails){
+        return Jwts.builder().setClaims(extraclaims)
+                .setSubject(userDetails.getUsername())
+                .setIssuedAt(new Date(System.currentTimeMillis()))
+                .setExpiration(new Date(System.currentTimeMillis()+604800000))
+                .signWith(getSignKey(), SignatureAlgorithm.HS256)
+                .compact();}
     private  <T> T extractclaims(String token, Function<Claims,T>claimReslover){
         final Claims claims=extractAllClaims(token);
         return claimReslover.apply(claims);
@@ -38,7 +48,7 @@ public class jwtserviceimpl {
         byte[] key= Decoders.BASE64.decode("");
         return Keys.hmacShaKeyFor(key);
     }
-    private boolean isTokenValid(String token,UserDetails userDetails){
+    public boolean isTokenValid(String token, UserDetails userDetails){
         final String username=extractUserName(token);
         return (username.equals(userDetails.getUsername())&& isTokenexpired(token));
     }

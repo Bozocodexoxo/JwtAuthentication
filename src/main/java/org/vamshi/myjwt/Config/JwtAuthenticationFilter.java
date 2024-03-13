@@ -1,7 +1,5 @@
 package org.vamshi.myjwt.Config;
 
-import com.vamshi.springbootjwt.Service.Userservice;
-import com.vamshi.springbootjwt.Service.jwtservice;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -15,6 +13,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
+import org.vamshi.myjwt.Service.Userservice;
+import org.vamshi.myjwt.Service.jwtservice;
 
 
 import java.io.IOException;

@@ -1,8 +1,11 @@
 package org.vamshi.myjwt.Service.impl;
 
-import com.vamshi.springbootjwt.Repository.Employeerepo;
-import com.vamshi.springbootjwt.Service.Userservice;
+import org.vamshi.myjwt.Repo.Employeerepo;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.vamshi.myjwt.Service.Userservice;
 
 @Service
 public class UserServiceimpl implements Userservice {
